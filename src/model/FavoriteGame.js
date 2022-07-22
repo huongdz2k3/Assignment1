@@ -15,7 +15,17 @@ const fvGameSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     }
+}, {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 })
+
+fvGameSchema.virtual('Game', {
+    ref: 'Game',
+    foreignField: '_id',
+    localField: 'game'
+})
+
 const FvGame = mongoose.model('FvGame', fvGameSchema)
 
 module.exports = FvGame
